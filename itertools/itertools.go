@@ -5,7 +5,7 @@
 //itertools is a (limited) port of Python's itertools module.
 package itertools
 
-// Count returns a slice with step-spaced values from the range 
+// Count returns a slice with step-spaced values from the range
 // beginning with start and ending before stop.
 //
 //  Count(1, 10, 1) -> [1 2 3 4 5 6 7 8 9]
@@ -64,7 +64,7 @@ func Repeat(element, n int) []int {
 }
 
 // Chain returns a slice consisting of the elements within iterables.
-// 
+//
 // Used for treating consecutive sequences as a single sequence.
 //  Chain([]int{1, 2, 3}, []int{4, 5, 6}) -> [1 2 3 4 5 6]
 func Chain(iterables ...[]int) []int {
@@ -80,10 +80,10 @@ func Chain(iterables ...[]int) []int {
 }
 
 // Compress returns a slice based on data compressed by selectors.
-// 
-// Elements in data are included in the returned slice if they have a 
-// correspondig element in selectors that is greater than 0. Stops 
-// when either the data or selectors iterables has been exhausted. 
+//
+// Elements in data are included in the returned slice if they have a
+// correspondig element in selectors that is greater than 0. Stops
+// when either the data or selectors iterables has been exhausted.
 //  Compress([]int{1, 2, 3}, []int{0, 1, 1}) -> [2 3]
 func Compress(data, selectors []int) []int {
 
@@ -104,7 +104,7 @@ func Compress(data, selectors []int) []int {
 
 }
 
-// DropWhile drops elements from the iterable as long as the 
+// DropWhile drops elements from the iterable as long as the
 // predicate is true; afterwards, returns every element.
 //
 //  DropWhile(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [2 4 5 7 6 8]
@@ -128,7 +128,7 @@ func DropWhile(predicate func(int) bool, iterable []int) []int {
 
 }
 
-// TakeWhile returns elements from the iterable as long as the 
+// TakeWhile returns elements from the iterable as long as the
 // predicate is true.
 //
 //  TakeWhile(is_odd, []int{1, 3, 2, 4, 5, 7, 6, 8}) -> [1, 3]
@@ -244,9 +244,9 @@ func IZip(iterables ...[]int) [][]int {
 
 // IZipLongest aggregates elements from each of the iterables.
 //
-// If the iterables are of uneven length, missing values are 
+// If the iterables are of uneven length, missing values are
 // filled-in with fillvalue. Iteration continues until the longest
-// iterable is exhausted. 
+// iterable is exhausted.
 //  IZipLongest(0, []int{10, 20, 30}, []int{1, 2}) -> [[10 1] [20 2] [30 0]]
 func IZipLongest(fillvalue int, iterables ...[]int) [][]int {
 
@@ -330,14 +330,14 @@ func Product(args ...[]int) [][]int {
 }
 
 // Permutations returns sucessive r length permutations of elements from
-// iterable. 
-// 
+// iterable.
+//
 // Elements are treated as unique based on their position,
 // not on their value. So if the input elements are unique, there
 // will be no repeat values in each permutation.
 //
 //  Permutations([]int{1, 2, 3}, 3) -> [[1 2 3] [1 3 2] [2 1 3] [2 3 1] [3 1 2] [3 2 1]]
-func Permutations(iterable []int, r int) [][]int {
+func Permutations(iterable []interface{}, r int) [][]interface{} {
 	pool := iterable
 	n := len(pool)
 
@@ -355,12 +355,12 @@ func Permutations(iterable []int, r int) [][]int {
 		cycles[i] = n - i
 	}
 
-	result := make([]int, r)
+	result := make([]interface{}, r)
 	for i, el := range indices[:r] {
 		result[i] = pool[el]
 	}
 
-	results := [][]int{result}
+	results := [][]interface{}{result}
 
 	for n > 0 {
 		i := r - 1
@@ -377,7 +377,7 @@ func Permutations(iterable []int, r int) [][]int {
 				j := cycles[i]
 				indices[i], indices[n-j] = indices[n-j], indices[i]
 
-				result := make([]int, r)
+				result := make([]interface{}, r)
 				for k := 0; k < r; k += 1 {
 					result[k] = pool[indices[k]]
 				}
@@ -399,7 +399,7 @@ func Permutations(iterable []int, r int) [][]int {
 }
 
 // Combinations returns r length subsquences of elements from
-// iterable. 
+// iterable.
 //
 // Elements are treated as unique based on their position,
 // not on their value. So if the input elements are unique, there
